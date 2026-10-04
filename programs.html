@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Freeman&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/programs.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img class="logo" src="/assets/images/Logo.png">
+            <a class="navbar-brand" href="/index.html">NextStep</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" href="#">Programs</a></li>
+                <li class="nav-item"><a class="nav-link" href="/program_info.html">Result</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+                <li class="d-md-none d-flex nav-item"><a href="#" class="btn-login open-login">Log In</a><a class="btn-taketest" id="takeTest1">Take the Test</a></li>
+                </ul>
+            </div>
+
+            <div class="d-md-flex d-none align-items-center">
+                <a href="#" class="btn-login open-login">Log In</a>
+                <a href="#" class="btn-taketest" id="takeTest2">Take the Test</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="header">
+        <div class="container">
+            <h2>Explore Programs</h2>
+        </div>
+    </section>
+
+  <!-- Technology & Engineering Section -->
+    <section class="tech-section">
+        <div class="container px-0">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Technology & Engineering</h2>
+            <div id="tech-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Business & Management Section -->
+    <section class="business-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Business & Management</h2>
+            <div id="business-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="health-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Health & Medical Sciences</h2>
+            <div id="health-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="art-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Arts, Design & Humanities</h2>
+            <div id="art-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <section class="educ-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Education & Teacher Training</h2>
+            <div id="educ-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <section class="social-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Social Sciences & Psychology</h2>
+            <div id="social-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <section class="law-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Law, Governance & Public Service</h2>
+            <div id="law-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <section class="agri-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Agriculture, Fisheries & Environment</h2>
+            <div id="agri-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <section class="aviation-section">
+        <div class="container">
+            <h2 class="title"><img src="/assets/images/foot.png" class="me-2 rounded-full" alt="Icon"> Aviation, Maritime & Transportation</h2>
+            <div id="aviation-cards" class="card-scroll-container">
+                <!-- Cards will be injected here by JavaScript -->
+            </div>
+        </div>
+    </section>
+    <section class="cta">
+        <div class="container d-flex align-items-center justify-content-center">
+            <h3>Do you want to know what programs<br>are suited for you?</h3>
+            <button class="btn btn-cta" id="startTestBtn2">Start the Test</button>
+        </div>
+    </section>
+    <footer>
+        <div>© 2025 NextStep | Terms | Privacy Policy | Accessibility</div>
+    </footer>
+
+    <!-- Log In / Account Recovery Modal -->
+<div id="loginModal" class="modal-overlay">
+  <div class="modal-content" id="loginContent">
+    <!-- Login Form -->
+    <h2>Log In</h2>
+    <p>
+      First time here? Create an account by taking our <br>
+      <a href="#" class="highlight">Future Program test.</a>
+    </p>
+
+    <div id="loginForm">
+      <input type="email" class="form-control modal-input" id="loginEmail" placeholder="Email" required>
+      <input type="password" class="form-control modal-input" id="loginPassword" placeholder="Password" required>
+      <button type="submit" class="btn-modal-primary">Log In</button>
+    </div>
+
+    <p class="small-text">
+      <a href="#" id="forgotPasswordLink">Forgot your password?</a>
+    </p>
+
+  </div>
+
+  <!-- Account Recovery Form -->
+    <div class="modal-content d-none" id="recoveryContent">
+        <h2>Account Recovery</h2>
+        <p>Enter your email address below and we’ll send you a reset link.</p>
+
+        <div id="recoveryForm">
+            <input type="email" class="form-control modal-input" id="recoveryEmail" placeholder="Email" required>
+            <button type="submit" class="btn-modal-primary">Send Link</button>
+        </div>
+
+        <p class="small-text">
+        <a href="#" id="backToLogin">Back to Login</a>
+        </p>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        $(document).ready(function() {
+            // ====================================================================
+            // STEP 1: MOCK DATA SIMULATING DATABASE RESPONSE
+            // Backend developers can replace this array with the actual data fetch.
+            // ====================================================================
+            const programsData = [
+                // Technology Programs (Dark Blue Section - Teal Card)
+                {
+                    id: 1,
+                    category: 'Technology & Engineering', //field
+                    title: 'Bachelor of Science in Information Technology', // name
+                    description: 'Learn to design, develop, and maintain software systems and applications.',
+                    duration: 'Technology | 4 years', // ex. 4 years
+                    colorClass: 'tech-card' 
+                },
+                {
+                    id: 2,
+                    category: 'Technology & Engineering',
+                    title: 'Bachelor of Science in Computer Science',
+                    description: 'Focus on theoretical foundations of information and computation and their practical implementation.',
+                    duration: 'Technology | 4 years',
+                    colorClass: 'tech-card'
+                },
+                {
+                    id: 3,
+                    category: 'Technology & Engineering',
+                    title: 'Bachelor of Science in Data Science',
+                    description: 'Master the art of extracting knowledge and insights from data in various forms.',
+                    duration: 'Technology | 4 years',
+                    colorClass: 'tech-card'
+                },
+                {
+                    id: 4,
+                    category: 'Technology & Engineering',
+                    title: 'Bachelor of Science in Electronics Engineering',
+                    description: 'Design and develop electronic circuits and systems for various applications.',
+                    duration: 'Engineering | 5 years',
+                    colorClass: 'tech-card'
+                },
+                {
+                    id: 5,
+                    category: 'Technology & Engineering',
+                    title: 'Bachelor of Science in Cybersecurity',
+                    description: 'Learn to protect networks, programs, and data from attack, damage, or unauthorized access.',
+                    duration: 'Technology | 4 years',
+                    colorClass: 'tech-card'
+                },
+                // Business Programs (Dark Green Section - Lime Green Card)
+                {
+                    id: 6,
+                    category: 'Business & Management',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'business-card' // Custom class for styling
+                },
+                {
+                    id: 7,
+                    category: 'Business & Management',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'business-card'
+                },
+                {
+                    id: 8,
+                    category: 'Business & Management',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'business-card'
+                },
+                {
+                    id: 9,
+                    category: 'Business & Management',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'business-card'
+                },
+                {
+                    id: 10,
+                    category: 'Business & Management',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'business-card'
+                },
+                {
+                    id: 11,
+                    category: 'Health & Medical Sciences',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'health-card' // Custom class for styling
+                },
+                {
+                    id: 12,
+                    category: 'Health & Medical Sciences',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'health-card'
+                },
+                {
+                    id: 13,
+                    category: 'Health & Medical Sciences',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'health-card'
+                },
+                {
+                    id: 14,
+                    category: 'Health & Medical Sciences',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'health-card'
+                },
+                {
+                    id: 15,
+                    category: 'Health & Medical Sciences',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'health-card'
+                },
+                {
+                    id: 16,
+                    category: 'Arts, Design & Humanities',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'art-card' // Custom class for styling
+                },
+                {
+                    id: 17,
+                    category: 'Arts, Design & Humanities',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'art-card'
+                },
+                {
+                    id: 18,
+                    category: 'Arts, Design & Humanities',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'art-card'
+                },
+                {
+                    id: 19,
+                    category: 'Arts, Design & Humanities',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'art-card'
+                },
+                {
+                    id: 20,
+                    category: 'Arts, Design & Humanities',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'art-card'
+                },
+                {
+                    id: 21,
+                    category: 'Education & Teacher Training',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'educ-card' // Custom class for styling
+                },
+                {
+                    id: 22,
+                    category: 'Education & Teacher Training',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'educ-card'
+                },
+                {
+                    id: 23,
+                    category: 'Education & Teacher Training',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'educ-card'
+                },
+                {
+                    id: 24,
+                    category: 'Education & Teacher Training',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'educ-card'
+                },
+                {
+                    id: 25,
+                    category: 'Education & Teacher Training',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'educ-card'
+                },
+                {
+                    id: 26,
+                    category: 'Social Sciences & Psychology',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'social-card' // Custom class for styling
+                },
+                {
+                    id: 27,
+                    category: 'Social Sciences & Psychology',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'social-card'
+                },
+                {
+                    id: 28,
+                    category: 'Social Sciences & Psychology',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'social-card'
+                },
+                {
+                    id: 29,
+                    category: 'Social Sciences & Psychology',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'social-card'
+                },
+                {
+                    id: 30,
+                    category: 'Social Sciences & Psychology',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'social-card'
+                },
+                {
+                    id: 31,
+                    category: 'Law, Governance & Public Service',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'law-card' // Custom class for styling
+                },
+                {
+                    id: 32,
+                    category: 'Law, Governance & Public Service',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'law-card'
+                },
+                {
+                    id: 33,
+                    category: 'Law, Governance & Public Service',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'law-card'
+                },
+                {
+                    id: 34,
+                    category: 'Law, Governance & Public Service',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'law-card'
+                },
+                {
+                    id: 35,
+                    category: 'Law, Governance & Public Service',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'law-card'
+                },
+                {
+                    id: 36,
+                    category: 'Agriculture, Fisheries & Environment',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'agri-card' // Custom class for styling
+                },
+                {
+                    id: 37,
+                    category: 'Agriculture, Fisheries & Environment',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'agri-card'
+                },
+                {
+                    id: 38,
+                    category: 'Agriculture, Fisheries & Environment',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'agri-card'
+                },
+                {
+                    id: 39,
+                    category: 'Agriculture, Fisheries & Environment',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'agri-card'
+                },
+                {
+                    id: 40,
+                    category: 'Agriculture, Fisheries & Environment',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'agri-card'
+                },
+                {
+                    id: 41,
+                    category: 'Aviation, Maritime & Transportation',
+                    title: 'Bachelor of Science in Business Administration',
+                    description: 'Gain comprehensive knowledge in business principles, management, and strategy.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'aviation-card' // Custom class for styling
+                },
+                {
+                    id: 42,
+                    category: 'Aviation, Maritime & Transportation',
+                    title: 'Bachelor of Science in Accountancy',
+                    description: 'Focus on financial reporting, auditing, and taxation for corporate entities.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'aviation-card'
+                },
+                {
+                    id: 43,
+                    category: 'Aviation, Maritime & Transportation',
+                    title: 'Bachelor of Science in Marketing Management',
+                    description: 'Study consumer behavior, market research, and strategic marketing campaigns.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'aviation-card'
+                },
+                {
+                    id: 44,
+                    category: 'Aviation, Maritime & Transportation',
+                    title: 'Bachelor of Science in Finance',
+                    description: 'Understand the principles of investment, financial risk, and capital management.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'aviation-card'
+                },
+                {
+                    id: 45,
+                    category: 'Aviation, Maritime & Transportation',
+                    title: 'B.S. in Entrepreneurship',
+                    description: 'Develop skills to start, operate, and grow new businesses and ventures successfully.',
+                    duration: 'Management | 4 years',
+                    colorClass: 'aviation-card'
+                },
+            ];
+            // ====================================================================
+            // STEP 2: GROUP DATA BY CATEGORY
+            // This prepares the data for separate rendering containers.
+            // ====================================================================
+            const groupedPrograms = programsData.reduce((acc, program) => {
+                const { category } = program;
+                if (!acc[category]) {
+                    acc[category] = [];
+                }
+                acc[category].push(program);
+                return acc;
+            }, {});
+
+            // ====================================================================
+            // STEP 3: DYNAMIC CARD RENDERING FUNCTION (Key for Backend Integration)
+            // Backend data (like the programsData array) will be passed here.
+            // ====================================================================
+            function createCardHTML(program) {
+                return `
+                    <div class="program-card ${program.colorClass}">
+                        <div class="program-title">${program.title}</div>
+                        <p class="program-description">${program.description}</p>
+                        <p class="program-duration">${program.duration}</p>
+                        <button class="btn btn-sm btn-custom" data-program-id="${program.id}">
+                            View Details
+                        </button>
+                    </div>
+                `;
+            }
+
+            // ====================================================================
+            // STEP 4: RENDER THE CARDS TO THE UI
+            // ====================================================================
+
+            // Render Technology & Engineering Cards
+            const techPrograms = groupedPrograms['Technology & Engineering'] || [];
+            const techHtml = techPrograms.map(createCardHTML).join('');
+            $('#tech-cards').html(techHtml);
+
+            // Render Business & Management Cards
+            const businessPrograms = groupedPrograms['Business & Management'] || [];
+            const businessHtml = businessPrograms.map(createCardHTML).join('');
+            $('#business-cards').html(businessHtml);
+
+            // Render Health & Medical Sciences
+            const healthPrograms = groupedPrograms['Health & Medical Sciences'] || [];
+            const healthHtml = healthPrograms.map(createCardHTML).join('');
+            $('#health-cards').html(healthHtml);
+
+            // Render Arts, Design & Humanities
+            const artPrograms = groupedPrograms['Arts, Design & Humanities'] || [];
+            const artHtml = artPrograms.map(createCardHTML).join('');
+            $('#art-cards').html(artHtml);
+
+            // Render Education & Teacher Training
+            const educPrograms = groupedPrograms['Education & Teacher Training'] || [];
+            const educHtml = educPrograms.map(createCardHTML).join('');
+            $('#educ-cards').html(educHtml);
+
+            // Render Social Sciences & Psychology
+            const socialPrograms = groupedPrograms['Social Sciences & Psychology'] || [];
+            const socialHtml = socialPrograms.map(createCardHTML).join('');
+            $('#social-cards').html(socialHtml);
+
+            // Render Law, Governance & Public Service
+            const lawPrograms = groupedPrograms['Law, Governance & Public Service'] || [];
+            const lawHtml = lawPrograms.map(createCardHTML).join('');
+            $('#law-cards').html(lawHtml);
+
+            // Render Agriculture, Fisheries & Environment
+            const agriPrograms = groupedPrograms['Agriculture, Fisheries & Environment'] || [];
+            const agriHtml = agriPrograms.map(createCardHTML).join('');
+            $('#agri-cards').html(agriHtml);
+
+            // Render Aviation, Maritime & Transportation
+            const aviationPrograms = groupedPrograms['Aviation, Maritime & Transportation'] || [];
+            const aviationHtml = aviationPrograms.map(createCardHTML).join('');
+            $('#aviation-cards').html(aviationHtml);
+
+
+            // ====================================================================
+            // STEP 5: ADD INTERACTIVITY (Example for Backend/Frontend hooks)
+            // ====================================================================
+            $('.btn-custom').on('click', function() {
+                const programId = $(this).data('program-id');
+                const programTitle = $(this).siblings('.program-title').text();
+                
+                // This is where you would typically route the user or fetch more details.
+                console.log(`View Details clicked for Program ID: ${programId} (${programTitle})`);
+                
+                // Custom alert box (instead of window.alert, which is forbidden)
+                const message = `You clicked to view details for: ${programTitle}. Backend logic will be implemented here.`;
+                showMessageBox(message);
+            });
+
+            // Utility function for custom message box (no alert/confirm allowed)
+            function showMessageBox(message) {
+                let $modal = $('#messageModal');
+                if ($modal.length === 0) {
+                    $modal = $(`
+                        <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="messageModalLabel">Program Action</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body"></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    $('body').append($modal);
+                }
+                $modal.find('.modal-body').text(message);
+                const modal = new bootstrap.Modal($modal[0]);
+                modal.show();
+            }
+        });
+
+        $("#startTestBtn2, #takeTest1, #takeTest2").click(function () {
+            Swal.fire({
+            title: "Ready to begin?",
+            text: "You will start the Future Program Test.",
+            icon: "info",
+            confirmButtonText: "Start Now",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                window.location.href = "test.html";
+                }
+            });
+        });
+
+        $(".open-login").click(function (e) {
+        e.preventDefault();
+        $("#loginModal").fadeIn(200).css("display", "flex");
+        });
+
+        $(window).click(function (e) {
+        if ($(e.target).is("#loginModal")) {
+            $("#loginModal").fadeOut(200);
+        }
+        });
+
+        // ===== SWITCH BETWEEN LOGIN AND RECOVERY =====
+        $("#forgotPasswordLink").click(function (e) {
+        e.preventDefault();
+        $("#loginContent").addClass("d-none");
+        $("#recoveryContent").removeClass("d-none");
+        });
+
+        $("#backToLogin").click(function (e) {
+        e.preventDefault();
+        $("#recoveryContent").addClass("d-none");
+        $("#loginContent").removeClass("d-none");
+        });
+
+        // ===== Placeholder submission logic =====
+        $("#loginForm").submit(function (e) {
+        e.preventDefault();
+        // placeholder for backend login handling
+        Swal.fire("Logged In", "Backend developer will handle authentication.", "success");
+        });
+
+        $("#recoveryForm").submit(function (e) {
+        e.preventDefault();
+        Swal.fire("Email Sent", "Password reset link sent to your email.", "info");
+        });
+        
+    </script>
+</html>

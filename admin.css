@@ -1,0 +1,33 @@
+:root{
+  --deep:#0b0b63;
+  --accent:#06B6D4;
+  --muted:#f6f6f8;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial;background:var(--muted);margin:0}
+.admin-wrap{min-height:100vh}
+/* sidebar */
+.sidebar{width:260px;min-height:100vh;background:var(--deep);color:#bfeef7}
+.nav-link{color:#bfeef7;padding:0.65rem 0.5rem;border-left:3px solid transparent}
+.nav-link:hover{background:rgba(255,255,255,0.02);text-decoration:none}
+.nav-link.active{background:rgba(255,255,255,0.03);border-left-color:var(--accent);color:#fff}
+
+/* main content */
+.content-area{flex:1;background:transparent;padding-left:2rem;padding-right:2rem}
+#contentArea .card{box-shadow:0 6px 18px rgba(2,6,23,0.06);border-radius:12px}
+
+/* small helper */
+.kpi {padding:1rem;border-radius:10px;background:#fff;margin-bottom:1rem}
+.quick-links .btn{background:var(--deep);color:#fff;border-radius:10px;margin-bottom:0.6rem}
+.loading-placeholder{height:300px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center}
+
+.navbar-brand {
+  font-family: "Freeman", sans-serif;
+  font-size: 2rem;
+  padding: 0.3rem 1rem;
+}
+
+/* responsive */
+@media (max-width:900px){
+  .sidebar{display:none}
+}

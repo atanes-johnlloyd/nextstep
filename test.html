@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>NextStep Test</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="test.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    .result-card { max-width: 920px; margin: 12px auto; padding: 14px; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); background: #fff; }
+    .result-title { font-weight: 700; margin-bottom:6px; }
+    .result-sub { color: #333; margin-bottom:6px; }
+    .btn-view { background: #070069; color: white; border:none; padding: 8px 12px; border-radius: 8px; text-decoration:none; }
+    .option { display:flex; align-items:center; margin:6px 0; cursor:pointer; }
+    .option input { margin-right: 10px; }
+    .btn-next { background:#070069; color:white; border:none; padding:8px 16px; border-radius:6px; }
+  </style>
+</head>
+<body class="footprints-bg">
+  <div class="header">NextStep Career Quiz</div>
+
+  <div class="test-card">
+    <div class="d-flex navbar">
+      <div>
+        <img class="logo" src="assets/images/Logo.png" alt="Logo">
+        <a href="index.php" class="navbar-brand">NextStep</a>
+      </div>
+      <div class="progress">
+        <div class="progress-bar" id="progressBar" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div id="quizSection">
+      <div class="question" id="questionText">Loading question...</div>
+      <div class="options" id="optionsContainer">
+        <div class="likert-line"></div>
+      </div>
+      <div class="text-center mt-4">
+        <!-- Previous & Next buttons will be dynamically handled -->
+      </div>
+    </div>
+
+    <div id="resultsSection" style="display:none;">
+      <h3 style="text-align:center; margin-top: 8px;">Your Top 3 Course Matches</h3>
+      <div id="top3List" style="margin-top:14px;"></div>
+      <div id="totalScore" style="text-align:center; margin-top:10px; font-weight:600;"></div>
+      <div style="text-align:center; margin-top:12px;">
+        <button id="retakeBtn" class="btn-next">Retake Quiz</button>
+      </div>
+    </div>
+  </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+const ANSWER_VALUE = {
+  "strongly-agree": 2,
+  "agree": 1,
+  "neutral": 0,
+  "disagree": -1,
+  "strongly-disagree": -2
+};
+
+let current = 0;
+const DELAY_MS = 1000; // 1 second
+let autoSubmitTimeout;
+
+const questions = [
+  // Technology & Engineering (Blue)
+  {id:1, text:"Do you enjoy building and debugging software or apps?", affinities: {"BSIT":1,"BSCS":0.95,"BS Software Engineering":0.9,"BSIS":0.6}},
+  {id:2, text:"Do you enjoy advanced programming and algorithms?", affinities: {"BSCS":1,"BS Data Science":0.85,"BS Software Engineering":0.8,"BSIT":0.5}},
+  {id:3, text:"Do you like designing computer hardware or embedded systems?", affinities: {"BSCpE":1,"BSECE":0.85,"BS Mechatronics Engineering":0.6}},
+  {id:4, text:"Do you enjoy network configuration and managing infrastructure?", affinities: {"BS Network Engineering":1,"BSIT":0.7,"BSCpE":0.5}},
+  {id:5, text:"Do you enjoy cybersecurity and investigating attacks?", affinities: {"BS Cybersecurity":1,"BSCS":0.6,"BSIT":0.6}},
+  {id:6, text:"Do you like analyzing large datasets?", affinities: {"BS Data Science":1,"BSCS":0.7,"BSIS":0.6}},
+  {id:7, text:"Do you enjoy software testing and lifecycle processes?", affinities: {"BS Software Engineering":1,"BSCS":0.7,"BSIT":0.6}},
+  {id:8, text:"Do you like managing databases and business software?", affinities: {"BSIS":1,"BSIT":0.7,"BS Business Administration":0.4}},
+  {id:9, text:"Do you enjoy designing mobile apps or web interfaces?", affinities: {"BSIT":1,"BS Software Engineering":0.85,"BSCS":0.6}},
+  {id:10, text:"Do you like developing AI or machine learning applications?", affinities: {"BS Data Science":1,"BSCS":0.85,"BS Software Engineering":0.6}},
+
+  // Business & Management (Green)
+  {id:11, text:"Do you enjoy managing business, marketing, or operations?", affinities: {"BS Business Administration":1,"BS Management Accounting":0.6,"BS Marketing":0.8}},
+  {id:12, text:"Do you like accounting, auditing, or financial reporting?", affinities: {"BS Accountancy":1,"BS Management Accounting":0.9,"BS Business Administration":0.5}},
+  {id:13, text:"Do you enjoy entrepreneurship and starting businesses?", affinities: {"BS Entrepreneurship":1,"BS Business Administration":0.7}},
+  {id:14, text:"Do you like retail management, sales, or e-commerce?", affinities: {"BS Retail Management":1,"BS E-Commerce":0.8,"BS International Business":0.6}},
+  {id:15, text:"Do you enjoy banking, finance, or investment analysis?", affinities: {"BS Banking and Finance":1,"BS Accounting":0.7,"BS Business Economics":0.6}},
+  {id:16, text:"Do you like human resource management, recruitment, or operations?", affinities: {"BS Office Administration":1,"BS Business Administration (HRM)":0.7}},
+  {id:17, text:"Do you enjoy tourism, hospitality, and guest services?", affinities: {"BS Tourism Management":1,"BS Hospitality Management":0.9}},
+  {id:18, text:"Do you like real estate, cooperative, or agribusiness management?", affinities: {"BS Real Estate Management":1,"BS Cooperative Management":0.8,"BS Agribusiness Management":0.7}},
+  {id:19, text:"Do you enjoy logistics, transportation, or aviation management?", affinities: {"BS Transportation Management":1,"BS Aeronautical Engineering":0.7,"BS Marine Transportation":0.6}},
+  {id:20, text:"Do you like international business, trade, or global marketing?", affinities: {"BS International Business":1,"BS Business Administration":0.6}},
+
+  // Health & Medical Sciences (Red)
+  {id:21, text:"Do you enjoy helping patients and providing clinical care?", affinities: {"BS Nursing":1,"BS Midwifery":0.8,"BS Medical Technology / Med Lab Sci":0.5}},
+  {id:22, text:"Do you like lab diagnostics, microscopy, and clinical tests?", affinities: {"BS Medical Technology / Med Lab Sci":1,"BS Biomedical Engineering":0.5,"BS Diagnostic Imaging Technology":0.5}},
+  {id:23, text:"Do you enjoy pharmacy, medicines, and pharmacology?", affinities: {"BS Pharmacy":1,"BS Biology (Pre-med)":0.6}},
+  {id:24, text:"Do you like rehabilitation, physical therapy, and mobility care?", affinities: {"BS Physical Therapy":1,"BS Occupational Therapy":0.7}},
+  {id:25, text:"Do you enjoy nutrition, dietetics, and wellness?", affinities: {"BS Nutrition and Dietetics":1,"BS Biology":0.5}},
+  {id:26, text:"Are you interested in human behavior, psychology, or counseling?", affinities: {"BS Psychology":1,"BA Social Work":0.6,"BS Nursing":0.3}},
+  {id:27, text:"Do you like radiology, imaging, or diagnostic technology?", affinities: {"BS Radiologic Technology":1,"BS Diagnostic Imaging Technology":0.8}},
+  {id:28, text:"Do you enjoy respiratory therapy and lung care?", affinities: {"BS Respiratory Therapy":1,"BS Nursing":0.5}},
+  {id:29, text:"Do you enjoy dentistry and oral health?", affinities: {"BS Dentistry":1,"BS Nursing":0.4}},
+  {id:30, text:"Do you like public health, epidemiology, or health education?", affinities: {"BS Public Health":1,"BS Nursing":0.6,"BS Medical Technology / Med Lab Sci":0.4}},
+
+  // Arts, Design & Humanities (Purple)
+  {id:31, text:"Do you enjoy painting, sculpture, or industrial design?", affinities: {"Bachelor of Fine Arts":1,"BS Interior Design":0.6,"BS Fashion Design & Merchandising":0.5}},
+  {id:32, text:"Do you like multimedia, film, or video production?", affinities: {"Bachelor of Multimedia Arts":1,"BA Film & Media Arts":0.9,"BA Communication / Mass Communication":0.7}},
+  {id:33, text:"Do you enjoy animation, game art, or digital illustration?", affinities: {"BS Animation":1,"BS Game Design & Development":0.9,"BS Digital Arts":0.7}},
+  {id:34, text:"Do you like interior design, architecture aesthetics, or space planning?", affinities: {"BS Interior Design":1,"BS Architecture":0.7}},
+  {id:35, text:"Do you enjoy fashion design, styling, or merchandising?", affinities: {"BS Fashion Design & Merchandising":1,"BS Interior Design":0.5}},
+  {id:36, text:"Do you like music, arts, or creative writing?", affinities: {"BA Music / Bachelor of Music Education":1,"BA Creative Writing":0.8,"BA Literature":0.7}},
+  {id:37, text:"Do you enjoy teaching, mentoring, or curriculum development?", affinities: {"BSEd":1,"BEEd":0.9,"Bachelor of Science Education":0.6}},
+  {id:38, text:"Do you like working in broadcasting, journalism, or mass communication?", affinities: {"BA Journalism":1,"BA Broadcasting":0.8,"BA Communication / Mass Communication":0.9}},
+  {id:39, text:"Do you enjoy literature, philosophy, or history?", affinities: {"BA Literature":1,"BA Philosophy":0.8,"BA History":0.7}},
+  {id:40, text:"Do you like digital arts, graphic design, or visual storytelling?", affinities: {"BS Digital Arts":1,"BS Graphic Design":0.9,"BS Animation":0.7}},
+
+  // Education & Teacher Training (Yellow/Orange)
+  {id:41, text:"Do you enjoy teaching young learners?", affinities: {"BEEd":1,"BSEd":0.9,"Bachelor of Early Childhood Education":0.8}},
+  {id:42, text:"Do you like developing curricula or lesson plans?", affinities: {"BSEd":1,"BEEd":0.8,"Bachelor of Technical-Vocational Teacher Education":0.6}},
+  {id:43, text:"Do you enjoy special needs instruction?", affinities: {"Bachelor of Special Needs Education":1,"BSEd":0.8}},
+  {id:44, text:"Do you like teaching physical education or sports?", affinities: {"Bachelor of Physical Education":1,"BSEd":0.6}},
+  {id:45, text:"Do you enjoy industrial/vocational teaching?", affinities: {"Bachelor of Science in Industrial Education":1,"BTVTE":0.8}},
+  {id:46, text:"Do you like culture and arts education?", affinities: {"Bachelor of Culture and Arts Education":1,"BSEd":0.6}},
+  {id:47, text:"Do you enjoy teaching math, science, or languages?", affinities: {"Bachelor of Mathematics Education":1,"Bachelor of Science Education":0.7}},
+  {id:48, text:"Do you like mentoring or tutoring students?", affinities: {"BEEd":1,"BSEd":0.8}},
+  {id:49, text:"Do you enjoy classroom management and student evaluation?", affinities: {"BSEd":1,"BEEd":0.8}},
+  {id:50, text:"Do you like working in schools or educational institutions?", affinities: {"BSEd":1,"BEEd":0.8}},
+
+  // Social Sciences & Psychology (Teal)
+  {id:51, text:"Do you enjoy psychology, human behavior, or counseling?", affinities: {"BS Psychology":1,"BA Social Work":0.6}},
+  {id:52, text:"Do you like sociology, anthropology, or cultural studies?", affinities: {"BA Sociology":1,"BA Anthropology":0.8}},
+  {id:53, text:"Do you enjoy political science, governance, or public administration?", affinities: {"BS Political Science":1,"BS Public Administration":0.9,"BS Governance and Public Policy":0.9}},
+  {id:54, text:"Do you like criminology, law enforcement, or forensic investigation?", affinities: {"BS Criminology":1,"BS Forensic Science":0.9}},
+  {id:55, text:"Do you enjoy social work or community engagement?", affinities: {"BA Social Work":1,"BS Psychology":0.7}},
+  {id:56, text:"Do you like development studies, history, or philosophy?", affinities: {"BA Development Studies":1,"BA History":0.7,"BA Philosophy":0.6}},
+  {id:57, text:"Do you enjoy research in social sciences?", affinities: {"BA Communication Research":1,"BA Sociology":0.7}},
+  {id:58, text:"Do you like economics, trade, or market analysis?", affinities: {"BA Economics":1,"BS Business Economics":0.6}},
+  {id:59, text:"Do you enjoy linguistics, languages, or culture studies?", affinities: {"BA Linguistics":1,"BA Anthropology":0.5}},
+  {id:60, text:"Do you like working with communities or public programs?", affinities: {"BS Public Administration":1,"BA Social Work":0.7}},
+
+  // Law, Governance & Public Service (Navy/Dark Blue)
+  {id:61, text:"Do you enjoy working in criminology or law enforcement?", affinities: {"BS Criminology":1,"BS Forensic Science":0.9}},
+  {id:62, text:"Do you like public administration and governance?", affinities: {"BS Public Administration":1,"BS Governance and Public Policy":0.9}},
+  {id:63, text:"Do you enjoy international relations or diplomacy?", affinities: {"BS International Relations":1,"BS Political Science":0.8}},
+  {id:64, text:"Do you like public safety and emergency response?", affinities: {"BS Public Safety":1,"BS Criminology":0.8}},
+  {id:65, text:"Do you enjoy forensic science or criminal investigation?", affinities: {"BS Forensic Science":1,"BS Criminology":0.9}},
+  {id:66, text:"Do you like law, legal studies, or policy-making?", affinities: {"BS Political Science":1,"BS Public Administration":0.8}},
+  {id:67, text:"Do you enjoy governance and policy research?", affinities: {"BS Governance and Public Policy":1,"BS Political Science":0.8}},
+  {id:68, text:"Do you like working in justice or correctional systems?", affinities: {"BS Criminology":1,"BS Public Safety":0.7}},
+  {id:69, text:"Do you enjoy international law or diplomacy?", affinities: {"BS International Relations":1,"BS Political Science":0.7}},
+  {id:70, text:"Do you like policy development and leadership?", affinities: {"BS Governance and Public Policy":1,"BS Political Science":0.6}},
+
+  // Agriculture, Fisheries & Environment (Forest Green)
+  {id:71, text:"Do you enjoy agriculture and farming sciences?", affinities: {"BS Agriculture":1,"BS Agribusiness Management":0.7}},
+  {id:72, text:"Do you like forestry or environmental conservation?", affinities: {"BS Forestry":1,"BS Environmental Science":0.8}},
+  {id:73, text:"Do you enjoy fisheries and aquaculture?", affinities: {"BS Fisheries":1,"BS Marine Biology":0.7}},
+  {id:74, text:"Do you like environmental science and sustainability?", affinities: {"BS Environmental Science":1,"BS Agriculture":0.6}},
+  {id:75, text:"Do you enjoy animal science and biotechnology?", affinities: {"BS Animal Science":1,"BS Agricultural Biotechnology":0.7}},
+  {id:76, text:"Do you like horticulture or plant sciences?", affinities: {"BS Horticulture":1,"BS Agriculture":0.6}},
+  {id:77, text:"Do you enjoy food technology and processing?", affinities: {"BS Food Technology":1,"BS Agricultural Biotechnology":0.6}},
+  {id:78, text:"Do you like marine biology and coastal management?", affinities: {"BS Marine Biology":1,"BS Fisheries":0.6}},
+  {id:79, text:"Do you enjoy environmental monitoring and forestry?", affinities: {"BS Forestry":1,"BS Environmental Science":0.7}},
+  {id:80, text:"Do you like agriculture, sustainability, or conservation?", affinities: {"BS Agriculture":1,"BS Environmental Science":0.6}},
+
+  // Aviation, Maritime & Transportation (Sky Blue/Light Gray)
+  {id:81, text:"Do you enjoy aeronautical engineering?", affinities: {"BS Aeronautical Engineering":1,"BS Aviation Maintenance Technology":0.8}},
+  {id:82, text:"Do you like aircraft maintenance and repairs?", affinities: {"BS Aircraft Maintenance Engineering":1,"BS Aeronautical Engineering":0.7}},
+  {id:83, text:"Do you enjoy maritime navigation or marine transportation?", affinities: {"BS Marine Transportation":1,"BS Nautical Science":0.8}},
+  {id:84, text:"Do you like shipping logistics or port operations?", affinities: {"BS Transportation Management":1,"BS Marine Transportation":0.7}},
+  {id:85, text:"Do you enjoy piloting or flight operations?", affinities: {"BS Aviation":1,"BS Aeronautical Engineering":0.6}},
+  {id:86, text:"Do you like logistics and supply chain management?", affinities: {"BS Transportation Management":1,"BS Business Administration":0.6}},
+  {id:87, text:"Do you enjoy aircraft design and aerodynamics?", affinities: {"BS Aeronautical Engineering":1,"BS Mechanical Engineering":0.6}},
+  {id:88, text:"Do you like maritime safety and coastal operations?", affinities: {"BS Marine Transportation":1,"BS Maritime Safety":0.6}},
+  {id:89, text:"Do you enjoy aviation technology and maintenance?", affinities: {"BS Aviation Maintenance Technology":1,"BS Aeronautical Engineering":0.6}},
+  {id:90, text:"Do you like piloting, navigation, or aviation logistics?", affinities: {"BS Aviation":1,"BS Aeronautical Engineering":0.6}}
+];
+
+const rawScores = {};
+const maxScores = {};
+
+questions.forEach(q=>{
+  for(const [course,aff] of Object.entries(q.affinities)){
+    rawScores[course]=0;
+    maxScores[course]=(maxScores[course]||0)+(2*aff);
+  }
+});
+
+function renderQuestion(i){
+  const q = questions[i];
+  $("#questionText").text(q.text);
+  const optionLabels = ["strongly-agree","agree","neutral","disagree","strongly-disagree"];
+  const optionText = ["Strongly Agree","Agree","Neutral","Disagree","Strongly Disagree"];
+  
+  $("#optionsContainer").html(optionLabels.map((val,idx)=>`
+    <div class="option ${val}">
+      <input type="radio" name="answer" id="${val}" value="${val}" ${q.selected===val ? "checked" : ""}>
+      <label for="${val}"></label><p>${optionText[idx]}</p>
+    </div>`).join('') + '<div class="likert-line"></div>');
+
+  $("#progressBar").css("width", Math.round(i/questions.length*100)+"%");
+
+  // Previous button
+  if($("#prevBtn").length === 0){
+    $(".text-center").prepend('<button id="prevBtn" class="btn-next me-2">Previous</button>');
+  }
+  $("#prevBtn").prop("disabled", i===0);
+  $("#prevBtn").off('click').on('click', ()=>{
+    if(autoSubmitTimeout) clearTimeout(autoSubmitTimeout);
+    if(current > 0){
+      current--;
+      renderQuestion(current);
+    }
+  });
+  // Auto-submit after 1 second
+  $("input[name='answer']").off('change').on('change', function(){
+    const selectedVal = $(this).val();
+    q.selected = selectedVal;
+    if(autoSubmitTimeout) clearTimeout(autoSubmitTimeout);
+    autoSubmitTimeout = setTimeout(()=>{
+      const val = ANSWER_VALUE[selectedVal];
+      for(const [course,aff] of Object.entries(q.affinities)) rawScores[course] += val*aff;
+      current++;
+      if(current < questions.length){
+        renderQuestion(current);
+      } else {
+        showResults();
+      }
+    }, DELAY_MS);
+  });
+}
+
+function showResults(){
+  const results=[];
+  let totalScore=0;
+  for(const course of Object.keys(rawScores)){
+    const raw=rawScores[course];
+    const max=maxScores[course]||1;
+    const pct=Math.max(0,Math.min(100,(raw/max)*100));
+    totalScore+=pct;
+    results.push({course,raw,max,pct});
+  }
+
+  results.sort((a,b)=>b.pct-a.pct);
+  const top3=results.slice(0,3);
+
+  $("#quizSection").hide();
+  $("#resultsSection").show();
+  const $list=$("#top3List");
+  $list.empty();
+
+  top3.forEach((r,idx)=>{
+    $list.append(`
+      <div class="result-card">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="flex:1;">
+            <div class="result-title">${idx+1}. ${r.course}</div>
+            <div class="result-sub">Match: ${r.pct.toFixed(1)}% (Score: ${r.raw.toFixed(1)}/${r.max.toFixed(1)})</div>
+            <div class="progress" style="height:10px; border-radius:6px; overflow:hidden;">
+              <div class="progress-bar" role="progressbar" style="width:${r.pct}%; background:#070069;"></div>
+            </div>
+          </div>
+        </div>
+      </div>`);
+  });
+
+  $("#totalScore").text("Total score (sum of % across all courses): "+totalScore.toFixed(1));
+}
+
+$("#retakeBtn").click(()=>{
+  for(const k in rawScores) rawScores[k]=0;
+  current=0;
+  questions.forEach(q=>q.selected=null);
+  $("#resultsSection").hide();
+  $("#quizSection").show();
+  renderQuestion(0);
+  $("#progressBar").css("width","0%");
+});
+
+$(document).ready(()=>{ renderQuestion(0); });
+</script>
+</body>
+</html>

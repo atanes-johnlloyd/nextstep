@@ -1,0 +1,191 @@
+body {
+	background-color: #F6F6F6;
+	background-image: url('/assets/images/Footsteps-test.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	width: 100%;
+	font-family: "Poppins", sans-serif;
+	position: relative;
+	overflow-x: hidden;
+}
+
+.header {
+	background: white;
+	font-family: "Freeman", sans-serif;
+	font-size: 1.5rem;
+	font-weight: 600;
+	padding: 1rem 0rem;
+	width: 100%;
+	margin: 0;
+	padding: 1rem;
+	text-align: center;
+}
+
+.test-card {
+	background: white;
+	border-radius: 20px;
+	box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+	max-width: 45rem;
+	margin: 80px auto;
+	padding: 1rem 2rem;
+	position: relative;
+}
+
+
+.logo {
+	height: 3rem;
+	padding-right: 1rem;
+	
+}
+
+.logo:hover {
+	filter: brightness(0.6)
+}
+
+.navbar-brand {
+	font-family: "Freeman", sans-serif;
+	font-size: 1rem;
+	color: #0b0b4f;
+	margin-left: 0;
+	font-weight: 600;
+}
+
+.progress {
+	height: 6px;
+	border-radius: 5px;
+	background-color: #ddd;
+	margin-bottom: 20px;
+	width: 50%;
+}
+
+.progress-bar {
+	background-color: #070069;
+}
+
+.question {
+	font-weight: 600;
+	font-size: 1.2rem;
+	text-align: center;
+	margin-top: 2rem;
+	margin-bottom: 40px;
+}
+
+.likert-line {
+	position: absolute;
+	top: 25%; /* ✅ centers the line vertically behind the circles */
+	left: 7%; /* ✅ adjust spacing on left */
+	right: 7%; /* ✅ adjust spacing on right */
+	height: 2px;
+	background-color: #ccc;
+	z-index: 0; /* ✅ line goes behind circles */
+	transform: translateY(-50%);
+}
+
+.options {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start; /* ✅ changed from center to flex-start for spacing */
+	flex-wrap: nowrap; /* ✅ keep on one line */
+	position: relative; /* ✅ so likert-line is positioned inside this container */
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+.option {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	z-index: 1; /* ✅ ensures circles are above the line */
+	flex: 1; /* ✅ evenly distribute across container */
+}
+
+.option.strongly-agree label {
+	border-color: #070069;
+	border-width: 0.15rem;
+	height: 4rem;
+	width: 4rem;
+}
+.option.strongly-agree input:checked + label {
+	background-color: #070069;
+}
+
+.option.agree label {
+	border-color: #06B6D4;
+	border-width: 0.15rem;
+	height: 3.5rem;
+	width: 3.5rem;
+	margin-top: 0.2rem;
+}
+.option.agree input:checked + label {
+	background-color: #06B6D4;
+}
+
+.option.neutral label {
+	border-color: #dddddd;
+	border-width: 0.15rem;
+	margin-top: 0.5rem;
+}
+.option.neutral input:checked + label {
+	background-color: #dddddd;
+}
+
+.option.disagree label {
+	border-color: #f77700;
+	border-width: 0.15rem;
+	height: 3.5rem;
+	width: 3.5rem;
+	margin-top: 0.2rem;
+}
+.option.disagree input:checked + label {
+	background-color: #f77700;
+}
+
+.option.strongly-disagree label {
+	border-color: #ff0000;
+	border-width: 0.15rem;
+	height: 4rem;
+	width: 4rem;
+}
+.option.strongly-disagree input:checked + label {
+	background-color: #ff0000;
+}
+
+.option input {
+	display: none;
+}
+
+.option label {
+	width: 3rem;
+	height: 3rem;
+	border: 3px solid #ccc;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	background-color: white; /* ✅ ensures white fill on default */
+}
+
+.option p {
+	margin-top: 10px;
+	font-size: 0.85rem;
+	text-align: center;
+	max-width: 80px; /* ✅ keeps text aligned below circle */
+}
+
+.btn-next {
+	background-color: #070069;
+	color: white;
+	border-radius: 25px;
+	padding: 10px 30px;
+	border: none;
+	transition: 0.3s;
+}
+
+.btn-next:hover {
+	background-color: #070069;
+}

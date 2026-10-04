@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NextStep</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Freeman&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <img class="logo" src="/assets/images/Logo.png">
+      <a class="navbar-brand" href="#">NextStep</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="/programs.html">Programs</a></li>
+          <li class="nav-item"><a class="nav-link" href="/program_info.html">Result</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+          <li class="d-md-none d-flex nav-item">
+            <a href="#" class="btn-login open-login">Log In</a>
+            <a class="btn-taketest" id="takeTheTest1">Take the Test</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-md-flex d-none align-items-center">
+        <a href="#" class="btn-login open-login">Log In</a>
+        <a href="#" class="btn-taketest" id="takeTheTest2">Take the Test</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text container">
+      <h1>Find The Next Step For You</h1>
+      <p>
+        Are you still undecided of what programs you should take when you became a college student? <br>
+        Let us help you by answering our Future Program Test and find the best match for you.
+      </p>
+      <button class="btn btn-hero" id="startTestBtn">Start the Test</button>
+    </div>
+  </section>
+
+  <!-- Steps Section -->
+  <section class="steps">
+    <div class="container">
+      <h2>Start with simple steps</h2>
+      <div class="row justify-content-center">
+        <div class="col-md-3 step-box">
+          <h5>Step 1</h5>
+          <h4>Log In</h4>
+          <p>Sign in to start your journey</p>
+        </div>
+        <div class="col-md-3 step-box">
+          <h5>Step 2</h5>
+          <h4>Answer</h4>
+          <p>Complete a quick Program Test</p>
+        </div>
+        <div class="col-md-3 step-box">
+          <h5>Step 3</h5>
+          <h4>Receive</h4>
+          <p>See tailored program suggestions for you</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container d-flex align-items-center justify-content-center">
+      <h3>Do you want to know what programs<br>are suited for you?</h3>
+      <button class="btn btn-cta" id="startTestBtn2">Start the Test</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div>© 2025 NextStep | Terms | Privacy Policy | Accessibility</div>
+  </footer>
+
+  <!-- Login/Register Modal -->
+  <div id="loginModal" class="modal-overlay">
+    <div class="modal-content" id="loginContent">
+      <h2>Log In</h2>
+      <p>New here? <a href="#" id="switchToRegister">Register instead</a></p>
+      <form id="loginForm">
+        <input type="email" class="form-control modal-input" id="loginEmail" placeholder="Email" required>
+        <input type="password" class="form-control modal-input" id="loginPassword" placeholder="Password" required>
+        <button type="submit" class="btn-modal-primary">Log In</button>
+      </form>
+      <p class="small-text"><a href="#" id="forgotPasswordLink">Forgot your password?</a></p>
+    </div>
+
+    <div class="modal-content d-none" id="registerContent">
+      <h2>Register</h2>
+      <p>Already have an account? <a href="#" id="switchToLogin">Login instead</a></p>
+      <form id="registerForm">
+        <input type="email" class="form-control modal-input" id="registerEmail" placeholder="Email" required>
+        <input type="password" class="form-control modal-input" id="registerPassword" placeholder="Password" required>
+        <button type="submit" class="btn-modal-primary">Register</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // Open login modal
+    $(".open-login").click(function(e){
+      e.preventDefault();
+      $("#loginModal").fadeIn(200).css("display","flex");
+    });
+
+    $(window).click(function(e){
+      if ($(e.target).is("#loginModal")) $("#loginModal").fadeOut(200);
+    });
+
+    // Switch login/register
+    $("#switchToRegister").click(function(e){
+      e.preventDefault();
+      $("#loginContent").addClass("d-none");
+      $("#registerContent").removeClass("d-none");
+    });
+    $("#switchToLogin").click(function(e){
+      e.preventDefault();
+      $("#registerContent").addClass("d-none");
+      $("#loginContent").removeClass("d-none");
+    });
+
+    // Start Test Buttons
+    $("#startTestBtn, #startTestBtn2, #takeTheTest1, #takeTheTest2").click(function () {
+      Swal.fire({
+        title: "Ready to begin?",
+        text: "You will start the Future Program Test.",
+        icon: "info",
+        confirmButtonText: "Start Now",
+      }).then((result) => {
+        if(result.isConfirmed) window.location.href = "test.html";
+      });
+    });
+
+    // AJAX Login
+    $("#loginForm").submit(function(e){
+      e.preventDefault();
+      $.ajax({
+        url: "login.php",
+        type: "POST",
+        dataType: "json",
+        data: { email: $("#loginEmail").val(), password: $("#loginPassword").val() },
+        success: function(res){
+          if(res.status === "success"){
+            Swal.fire("Success", res.message, "success").then(()=>{
+              $("#loginModal").fadeOut(200);
+              window.location.href = "index.html"; // redirect after login
+            });
+          } else Swal.fire("Error", res.message, "error");
+        },
+        error: function(){
+          Swal.fire("Error", "Server error. Please try again.", "error");
+        }
+      });
+    });
+
+    // AJAX Register
+    $("#registerForm").submit(function(e){
+  e.preventDefault();
+  $.ajax({
+    url: "register.php",
+    type: "POST",
+    dataType: "json",
+    data: { 
+      name: $("#registerName").val(),
+      email: $("#registerEmail").val(),
+      password: $("#registerPassword").val() 
+    },
+    success: function(res){
+      if(res.status === "success"){
+        Swal.fire("Success", res.message, "success").then(()=>{
+          $("#registerContent").addClass("d-none");
+          $("#loginContent").removeClass("d-none");
+        });
+      } else Swal.fire("Error", res.message, "error");
+    },
+    error: function(xhr, status, error){
+      console.error(xhr.responseText);
+      Swal.fire("Error", "Server error. Please check your PHP connection.", "error");
+    }
+  });
+});
+  </script>
+</body>
+</html>
